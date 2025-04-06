@@ -1,0 +1,104 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div id="vjiro">
+  {# Uncomment and enhance messages display #}
+  {% if messages %}
+  <div class="message-container">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags|default:'info' }} animated fadeIn">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.remove()">&times;</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# Registration Form #}
+  <div class="registration-container active-form" id="login-container">
+    <h2 class="fantasy-heading">Create Mystic Account</h2>
+    <form method="POST" action="{% url 'register' %}" class="registration-form" id="registration-form">
+      {% csrf_token %}
+      <input type="hidden" name="form_type" value="registration">
+
+      <div class="form-group" id="username_group">
+        <label for="username">Archmage Name</label>
+        <input type="text" id="username" name="username" 
+               placeholder="Min 3 characters" 
+               aria-describedby="username-help"
+               pattern=".{3,}" 
+               title="Minimum 3 characters">
+        <small id="username-help" class="form-text">Your mystical alias</small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Crystal Ball Address</label>
+        <input type="email" id="email" name="email" 
+               required 
+               placeholder="example@arcane.com"
+               autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Secret Rune Phrase</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" 
+                 required 
+                 minlength="6"
+                 autocomplete="new-password"
+                 aria-describedby="password-strength">
+          <button type="button" class="toggle-password" aria-label="Show password">👁</button>
+        </div>
+        <div id="password-strength" class="strength-meter"></div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="register-btn" 
+                aria-label="Create mystic account">
+          Summon Portal
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {# Login Form #}
+  <div class="registration-container" id="welcome-container">
+    <div class="welcome-content">
+      <h1 class="fantasy-heading">Welcome Back, Seeker</h1>
+      <form method="POST" action="{% url 'login' %}" class="registration-form" id="login-form">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="login">
+
+        <div class="form-group">
+          <label for="login-email">Crystal Ball Address</label>
+          <input type="email" id="login-email" name="email" 
+                 required 
+                 autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Secret Rune Phrase</label>
+          <div class="password-wrapper">
+            <input type="password" id="login-password" name="password" 
+                   required 
+                   autocomplete="current-password">
+            <button type="button" class="toggle-password" aria-label="Show password">👁</button>
+          </div>
+        </div>
+
+        <div class="form-group actions">
+          <button type="submit" class="register-btn" 
+                  aria-label="Enter the realm">
+            Open Gateway
+          </button>
+          <button type="button" class="switch-mode-btn" 
+                  id="change-mode-to-login" 
+                  aria-label="Switch to registration form">
+            Forge New Path
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
