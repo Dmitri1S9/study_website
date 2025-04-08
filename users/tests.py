@@ -1,7 +1,7 @@
 import datetime
 from django.urls import reverse
 from django.test import TestCase
-from .models import UserPlayer
+from .models import User
 from django.contrib.messages import get_messages
 
 
@@ -16,7 +16,7 @@ class RegistrationTestcase(TestCase):
             'password': 'test123'
         }
 
-        self.user = UserPlayer.objects.create(
+        self.user = User.objects.create(
             username='test',
             email='test@gmail.com',
             password='test123'
@@ -45,7 +45,7 @@ class RegistrationTestcase(TestCase):
         self.assertEqual(response.status_code, 302)  # Проверяем, что запрос успешен
         # redirect_url = response.headers['Location']  # Получаем URL перенаправления
         # print(redirect_url)  # Выводим URL для проверки
-        self.assertEqual(UserPlayer.objects.count(), 2)  # Теперь два пользователя в базе
+        self.assertEqual(User.objects.count(), 2)  # Теперь два пользователя в базе
 
     def test_3_incorrect_registration_short_name(self):
         data = {
@@ -57,7 +57,7 @@ class RegistrationTestcase(TestCase):
         self.assertEqual(response.status_code, 200)  # Проверяем, что запрос успешен
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), 'Слишком короткое имя')
-        self.assertEqual(UserPlayer.objects.count(), 1)  # Теперь два пользователя в базе
+        self.assertEqual(User.objects.count(), 1)  # Теперь два пользователя в базе
 
     def test_4_incorrect_registration_uniqueness_of_name(self):
         data = {
@@ -69,7 +69,7 @@ class RegistrationTestcase(TestCase):
         self.assertEqual(response.status_code, 200)  # Проверяем, что запрос успешен
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), 'Имя уже используется.')
-        self.assertEqual(UserPlayer.objects.count(), 1)  # Теперь два пользователя в базе
+        self.assertEqual(User.objects.count(), 1)  # Теперь два пользователя в базе
 
     def test_5_incorrect_registration_uniqueness_of_email(self):
         data = {
@@ -81,7 +81,7 @@ class RegistrationTestcase(TestCase):
         self.assertEqual(response.status_code, 200)  # Проверяем, что запрос успешен
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), 'Электронная почта уже используется.')
-        self.assertEqual(UserPlayer.objects.count(), 1)  # Теперь два пользователя в базе
+        self.assertEqual(User.objects.count(), 1)  # Теперь два пользователя в базе
 
 
 
