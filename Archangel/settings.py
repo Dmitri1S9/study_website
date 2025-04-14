@@ -26,6 +26,9 @@ SECRET_KEY = 'django-insecure-7h#gk+(ymb551b$aphx1-6!(xjk7#%b3vn&6z9*_mz0@dle2-e
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# DEBUG = False
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Список разрешенных хостов
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Если используете HTTPS через Nginx
 
 
 # Application definition
@@ -120,15 +123,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+# Static files
 STATIC_URL = '/static/'
-
-# The directory to collect static files into
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Optional: Directories to search for static files
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # This is where you store your static files for development
+    BASE_DIR / "static",
 ]
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
