@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7h#gk+(ymb551b$aphx1-6!(xjk7#%b3vn&6z9*_mz0@dle2-e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '192.168.217.129',  # Ваш IP-адрес
+]
+DEBUG = False
+
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Список разрешенных хостов
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Если используете HTTPS через Nginx
 
 
 # Application definition
@@ -78,9 +84,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'archangel',
-        'USER': 'postgres',
+        'USER': 'postgres' if DEBUG else 'darthundeddu',
         'PASSWORD': '6713',
-        'HOST': 'localhost',
+        'HOST': 'localhost' if DEBUG else 'db',
         'PORT': '5432',
     }
 }
@@ -120,15 +126,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# # Static files
 
-# The directory to collect static files into
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = 'static/'  # Путь, по которому будет доступна статика
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Папка, куда будет собираться статика
 
-# Optional: Directories to search for static files
+# Убедитесь, что папка static существует и находит файлы для сбора
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # This is where you store your static files for development
+    BASE_DIR / "static",  # Где лежат ваши статические файлы
 ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

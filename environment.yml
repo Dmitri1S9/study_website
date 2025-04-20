@@ -1,7 +1,0 @@
-name: archangel  # Имя окружения
-channels:
-  - defaults
-  - conda-forge  # Этот канал для дополнительных пакетов, если нужно
-dependencies:
-  - python=3.11  # Версия Python
-  - django       # Установка Django
