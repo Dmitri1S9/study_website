@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,6 +29,7 @@ ALLOWED_HOSTS = [
     '192.168.217.129',  # Ваш IP-адрес
 ]
 DEBUG = False
+
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Список разрешенных хостов
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Если используете HTTPS через Nginx
 
@@ -84,9 +84,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'archangel',
-        'USER': 'darthundeddu',
+        'USER': 'postgres' if DEBUG else 'darthundeddu',
         'PASSWORD': '6713',
-        'HOST': 'localhost',
+        'HOST': 'localhost' if DEBUG else 'db',
         'PORT': '5432',
     }
 }
