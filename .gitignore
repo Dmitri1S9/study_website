@@ -36,7 +36,13 @@ __pycache__/
 # Virtual environments
 venv/
 .env/
+env/
+
+.idea/
+
 *.egg-info/
 
 # Git
 *.swp
+
+xyi # Temporary files
