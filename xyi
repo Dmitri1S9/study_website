@@ -1,0 +1,65 @@
+sudo nano /etc/systemd/system/Archangel.service
+            [Unit]
+            Description=Gunicorn instance to serve Archangel Django App
+            Requires=Archangel.socket
+            After=network.target
+
+            [Service]
+            Type=notify
+            User=darthundeddu
+            Group=nginx
+            RuntimeDirectory=gunicorn
+            WorkingDirectory=/home/darthundeddu/Archangel/Archangel
+            Environment="PATH=/home/darthundeddu/miniconda3/envs/Archangel/bin"
+            ExecStart=/home/darthundeddu/miniconda3/envs/Archangel/bin/gunicorn \
+                --access-logfile - \
+                --workers 3 \
+                --bind unix:/run/Archangel.sock \
+                Archangel.wsgi:application
+
+            [Install]
+            WantedBy=multi-user.target
+
+sudo nano /etc/systemd/system/Archangel.socket
+
+            [Unit]
+            Description=gunicorn socket
+            [Socket]
+            ListenStream=/run/Archangel.sock
+            SocketUser=nginx
+            [Install]
+            WantedBy=sockets.target
+
+nginx Archangel.conf
+            upstream Archangel {
+                server unix:/run/Archangel.sock;
+            }
+
+            # HTTP — редирект на HTTPS
+            server {
+                listen 80;
+                server_name 192.168.217.129;
+                return 301 https://$host$request_uri;
+            }
+
+            # HTTPS сервер
+            server {
+                listen 443 ssl;
+                server_name 192.168.217.129;
+
+                include /etc/nginx/ssl_params;
+
+                location /static/ {
+                    alias /home/darthundeddu/Archangel/Archangel/staticfiles/;
+                }
+
+                location / {
+                    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+                    proxy_pass http://Archangel;
+                }
+            }
+
+
