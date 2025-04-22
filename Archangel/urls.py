@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('users.urls')),
+    path('reg', include('apps.users.urls')),
+    path('', include('apps.mainPage.urls')),
 ]
 
 # Убедитесь, что статика подключена

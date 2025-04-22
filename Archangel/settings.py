@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,8 +29,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.217.129',  # Ваш IP-адрес
 ]
-DEBUG = False
-
+DEBUG = True
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Список разрешенных хостов
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Если используете HTTPS через Nginx
 
@@ -37,7 +37,8 @@ DEBUG = False
 # Application definition
 
 INSTALLED_APPS = [
-    'users',
+    'apps.users',
+    'apps.mainPage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
