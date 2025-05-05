@@ -233,20 +233,27 @@
 
                 <h2>Popular products</h2>
                 <div class="products-grid">
-                    <article class="product-card">
-                        <img src="" class="product-image" alt="">
-                        <h3></h3>
-                        <p></p>
-                        <div class="price"></div>
-                        <button class="btn">Add</button>
-                    </article>
-                    <article class="product-card">
-                        <img src="" class="product-image" alt="">
-                        <h3></h3>
-                        <p>", </p>
-                        <div class="price"></div>
-                        <button class="btn">Add</button>
-                    </article>
+                    <ul>
+                        {% for product in products %}
+                            <li>{{ product.name }} — {{ product.cost }}₽</li>
+                        {% empty %}
+                            <li>Нет товаров</li>
+                        {% endfor %}
+                    </ul>
+{#                    <article class="product-card">#}
+{#                        <img src="" class="product-image" alt="">#}
+{#                        <h3></h3>#}
+{#                        <p></p>#}
+{#                        <div class="price"></div>#}
+{#                        <button class="btn">Add</button>#}
+{#                    </article>#}
+{#                    <article class="product-card">#}
+{#                        <img src="" class="product-image" alt="">#}
+{#                        <h3></h3>#}
+{#                        <p>", </p>#}
+{#                        <div class="price"></div>#}
+{#                        <button class="btn">Add</button>#}
+{#                    </article>#}
                 </div>
             </div>
         </section>

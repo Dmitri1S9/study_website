@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from .models import Product
 
 # Create your views here.
 
 # Главная страница приложения
-def home(request):
-    return render(request, 'mainPage/main.html')
+def main(request):
+    products = Product.objects.all()  # выгружаем все продукты из БД
+    return render(request, 'mainPage/main.html', {'products': products})
+
