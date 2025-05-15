@@ -1,17 +1,7 @@
-asgiref
-Bottleneck
-Django
+asgiref @ file:///C:/b/abs_ae1n0p_8_w/croot/asgiref_1724072476516/work
+Django @ file:///C:/b/abs_d8jy6px5xv/croot/django_1731616483677/work
 django-environ==0.12.0
-gunicorn==23.0.0
-numexpr
-numpy
-packaging==24.2
-pandas
-psycopg2-binary==2.9.10
-python-dateutil
-pytz
-scipy
-six
-sqlparse
-typing_extensions
-tzdata
+psycopg2 @ file:///C:/b/abs_3ei4rka0ip/croot/psycopg2_1731693723700/work
+sqlparse @ file:///C:/b/abs_68npyz0s6_/croot/sqlparse_1734704476369/work
+
+Django~=5.2

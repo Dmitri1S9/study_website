@@ -235,7 +235,8 @@
                 <div class="products-grid">
                     <ul>
                         {% for product in products %}
-                            <li>{{ product.name }} — {{ product.cost }}₽</li>
+                            <li>{{ product.productName }} — {{ product.cost }}₽</li>
+                            {# <li>{{ images }}</li>#}
                         {% empty %}
                             <li>Нет товаров</li>
                         {% endfor %}

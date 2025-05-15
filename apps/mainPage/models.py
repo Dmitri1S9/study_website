@@ -8,7 +8,8 @@ class WareHouse(models.Model):
         return self.address
 
 class Product(models.Model):
-    productID = models.AutoField(primary_key=True)
+    productID = models.AutoField(db_index=True, primary_key=True)
+    productName = models.TextField(unique=True)
     wareHouse = models.ForeignKey(WareHouse, on_delete=models.CASCADE)
     cost = models.IntegerField()
 
@@ -20,7 +21,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.BinaryField()
+    image = models.ImageField(upload_to='product_images/')
 
 class ProductDetail(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
