@@ -23,6 +23,7 @@
           - db
         networks:
           - backend
+        restart: always
 
       # Сервис для NGINX
       nginx:

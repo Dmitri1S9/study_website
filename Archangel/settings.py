@@ -9,11 +9,13 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -25,25 +27,20 @@ SECRET_KEY = 'django-insecure-7h#gk+(ymb551b$aphx1-6!(xjk7#%b3vn&6z9*_mz0@dle2-e
 
 ALLOWED_HOSTS = [
     'localhost',
-    '127.0.0.1',
-    '192.168.217.129',  # Ваш IP-адрес
+    os.environ.get('REAL_IP', '127.0.0.1')
 ]
-DEBUG = False
-
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Список разрешенных хостов
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Если используете HTTPS через Nginx
-
+DEBUG = True if os.environ.get('DEBUG', 'False').lower() == 'true' else False
 
 # Application definition
 
 INSTALLED_APPS = [
-    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +58,9 @@ ROOT_URLCONF = 'Archangel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'main/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,15 +80,21 @@ WSGI_APPLICATION = 'Archangel.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'archangel',
-        'USER': 'postgres' if DEBUG else 'darthundeddu',
-        'PASSWORD': '6713',
-        'HOST': 'localhost' if DEBUG else 'db',
-        'PORT': '5432',
+        'NAME': os.environ.get('POSTGRES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASS'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
+database = os.environ.get('DB_TYPE', 'default')
+DATABASES['default'] = DATABASES[database]
 
 
 # Password validation
@@ -128,12 +133,12 @@ USE_TZ = True
 
 # # Static files
 
-STATIC_URL = 'static/'  # Путь, по которому будет доступна статика
+STATIC_URL = '/static/'  # Путь, по которому будет доступна статика
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Папка, куда будет собираться статика
 
 # Убедитесь, что папка static существует и находит файлы для сбора
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Где лежат ваши статические файлы
+    BASE_DIR / 'static',  # Где лежат ваши статические файлы
 ]
 
 
@@ -141,3 +146,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# registration
+ACCOUNT_ACTIVATION_DAYS = 0
+REGISTRATION_OPEN = True
+LOGOUT_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = '/login/'
