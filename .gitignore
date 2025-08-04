@@ -1,48 +1,8 @@
-# This is a sample .gitignore file for a Python project with Docker and Django
-# Python
+
+/env/
+/venv/
 __pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.sqlite3
-*.db
-*.log
-*.pot
-
-# Docker
-**/node_modules
-**/npm-debug.log
-.docker/
-
-# Django
-*.log
-*.pot
 *.pyc
-*.pyo
-*.sqlite3
-*.db
-
-# Docker volumes
-*.pid
-*.sock
-
-# Environment files
-.env
-*.env
-*.env.*
-*.ini
-*.cfg
-
-# Virtual environments
-venv/
-.env/
-env/
-
-.idea/
-
-*.egg-info/
-
-# Git
-*.swp
-
-xyi # Temporary files
+/.env
+/apps/mainPage/migrations/
+/users/mainPage/migrations/

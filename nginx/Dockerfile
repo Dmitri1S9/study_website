@@ -1,7 +1,8 @@
 # Используем официальный Nginx образ
 FROM nginx:alpine
 
-COPY ssl_params /etc/nginx/ssl_params
+# Убираем копирование ssl_params — оно не нужно, если отказываемся от SSL
+# COPY ssl_params /etc/nginx/ssl_params
 
-# Копируем конфигурацию Nginx в контейнер
+# Копируем упрощённый конфиг Nginx без SSL
 COPY nginx.conf /etc/nginx/conf.d/default.conf
