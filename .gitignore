@@ -3,7 +3,6 @@
 /venv/
 __pycache__/
 *.pyc
-Archangel/settings.py
 /.env
 /apps/mainPage/migrations/
 /users/mainPage/migrations/
