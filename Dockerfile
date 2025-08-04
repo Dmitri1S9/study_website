@@ -1,26 +1,28 @@
-# Используем официальный Python образ
-FROM python:3.11-slim
+# Используем базовый образ с Mamba (в 10 раз быстрее, чем Conda)
+FROM condaforge/mambaforge:latest
 
-# Устанавливаем рабочую директорию в контейнере
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем файл зависимостей
-COPY requirements.txt /app/
+# Копируем файл окружения
+COPY archangel_env.yml /app/
 
-# Устанавливаем зависимости
-RUN pip install --no-cache-dir -r requirements.txt
+# Создаём окружение (название возьми из environment.yml, например Archangel)
+RUN mamba env create -f archangel_env.yml
+
+# Устанавливаем переменные среды
+ENV PATH="/opt/conda/envs/Archangel/bin:$PATH"
+ENV DJANGO_SETTINGS_MODULE=Archangel.settings
 
 # Копируем весь проект в контейнер
 COPY . /app/
 
-# Открываем порты, которые использует приложение
+# Открываем порт
 EXPOSE 5000
 
+# Собираем статику через окружение Archangel
+#RUN python manage.py migrate
+RUN /opt/conda/envs/Archangel/bin/python manage.py collectstatic --noinput
 
-ENV DJANGO_SETTINGS_MODULE=Archangel.settings
-
-
-RUN python manage.py collectstatic --noinput
-
-# Команда для запуска Gunicorn с Django приложением
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "Archangel.wsgi:application"]
+# Запуск Gunicorn из нужного окружения
+CMD ["/opt/conda/envs/Archangel/bin/gunicorn", "--bind", "0.0.0.0:5000", "Archangel.wsgi:application"]

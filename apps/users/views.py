@@ -58,5 +58,5 @@ def register(request):
             else:
                 messages.error(request, result)
 
-    return render(request, 'users/register.html')
+    return render(request, 'registration/register.html')
 

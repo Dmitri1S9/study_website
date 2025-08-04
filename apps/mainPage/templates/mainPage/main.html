@@ -233,28 +233,22 @@
 
                 <h2>Popular products</h2>
                 <div class="products-grid">
-                    <ul>
-                        {% for product in products %}
-                            <li>{{ product.productName }} — {{ product.cost }}₽</li>
-                            {# <li>{{ images }}</li>#}
-                        {% empty %}
-                            <li>Нет товаров</li>
-                        {% endfor %}
-                    </ul>
-{#                    <article class="product-card">#}
-{#                        <img src="" class="product-image" alt="">#}
-{#                        <h3></h3>#}
-{#                        <p></p>#}
-{#                        <div class="price"></div>#}
-{#                        <button class="btn">Add</button>#}
-{#                    </article>#}
-{#                    <article class="product-card">#}
-{#                        <img src="" class="product-image" alt="">#}
-{#                        <h3></h3>#}
-{#                        <p>", </p>#}
-{#                        <div class="price"></div>#}
-{#                        <button class="btn">Add</button>#}
-{#                    </article>#}
+                    {% for product in products %}
+                        <article class="product-card">
+                            {% with product.productimage_set.all|first as first_image %}
+                                <img src = "{{ first_image.image.url }}" alt="Product Image">
+                            {% endwith %}
+
+                            <h3>{{ product.productName }}</h3>
+
+                            {% with product.productdetail_set.all|first as first_detail %}
+                                <p>{{ first_detail.description }}</p>
+                            {% endwith %}
+
+                            <div class="price">$ {{ product.cost }}</div>
+                            <button class="btn">Add</button>
+                        </article>
+                    {% endfor %}
                 </div>
             </div>
         </section>
