@@ -1,18 +1,25 @@
-asgiref
-Bottleneck
-Django
-django-environ==0.12.0
-gunicorn==23.0.0
-numexpr
-numpy
-packaging==24.2
-pandas
-psycopg2-binary==2.9.10
-python-dateutil
-pytz
-scipy
-six
-sqlparse
-typing_extensions
-tzdata
 
+# Engine
+asgiref~=3.9.1
+Django~=5.2.4
+django-environ~=0.12.0
+packaging~=24.2
+pillow~=11.3.0
+psycopg2-binary~=2.9.10
+python-dateutil~=2.9.0.post0
+django-environ==0.12.0
+pytz~=2025.2
+six~=1.17.0
+sqlparse~=0.5.3
+typing_extensions~=4.14.1
+tzdata~=2025.2
+
+# Optimisation
+pandas~=2.3.1
+scipy~=1.16.1
+numpy~=2.3.2
+numexpr~=2.11.0
+Bottleneck~=1.5.0
+
+# Deploy
+gunicorn~=23.0.0

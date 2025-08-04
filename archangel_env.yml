@@ -15,6 +15,7 @@ dependencies:
   - numpy
   - pandas
   - scipy
+  - pillow
 
   # Системные библиотеки (оптимизированный список)
   - _libgcc_mutex=0.1=main
@@ -28,5 +29,6 @@ dependencies:
     - django-environ
     - psycopg2-binary  # Для работы с PostgreSQL
     - gunicorn         # Для production-развёртывания
+    - django-debug-toolbar
 
 prefix: /home/darthundeddu/miniconda3/envs/Archangel

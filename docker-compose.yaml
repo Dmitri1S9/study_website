@@ -1,9 +1,9 @@
     services:
       # Сервис для базы данных (PostgreSQL)
       db:
-        image: postgres:13
+        image: postgres:14
         environment:
-          POSTGRES_USER: darthundeddu
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 6713
           POSTGRES_DB: archangel
         volumes:
@@ -32,15 +32,13 @@
         container_name: nginx
         ports:
           - "80:80"
-          - "443:443"
         volumes:
-          - /home/darthundeddu/pki:/etc/nginx/ssl
           - ./staticfiles:/usr/share/nginx/html/static
-          # - media:/usr/share/nginx/html/media
         depends_on:
           - archangel
         networks:
           - backend
+
 
     volumes:
       postgres_data:
