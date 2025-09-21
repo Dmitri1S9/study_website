@@ -28,7 +28,7 @@ class RegistrationTestcase(TestCase):
         """
         Проверяем, что пользователь создается корректно
         """
-        self.assertEqual(UserPlayer.objects.count(), 1)  # Убедимся, что в базе один пользователь
+        self.assertEqual(User.objects.count(), 1)  # Убедимся, что в базе один пользователь
         self.assertEqual(self.user.username, 'test')
         self.assertEqual(self.user.email, 'test@gmail.com')
 

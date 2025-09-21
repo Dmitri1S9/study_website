@@ -8,15 +8,20 @@ class FatalError(Exception):
     pass
 
 
-def handle_login(email, password):
+def handle_login(login, password):
     try:
-        user = User.objects.get(email=email)
-        # print(password, user.password)
+        user = User.objects.get(username=login)
         if check_password(password, user.password):
             return True, user
         return False, 'Неверный пароль.'
     except User.DoesNotExist:
-        return False, 'Пользователь с таким email не найден.'
+        try:
+            user = User.objects.get(email=login)
+            if check_password(password, user.password):
+                return True, user
+            return False, "incorrect password"
+        except User.DoesNotExist:
+            return False, "There is no user with that email"
 
 
 def handle_registration(username, email, password):
@@ -47,14 +52,14 @@ def register(request):
             success, result = handle_login(email, password)
             if success:
                 messages.success(request, f'Добро пожаловать, {result.username}!')
-                return redirect('worldPage')
+                return redirect('home')
             else:
                 messages.error(request, result)
         else:  # Регистрация
             success, result = handle_registration(username, email, password)
             if success:
                 messages.success(request, 'Вы успешно зарегистрированы!')
-                return redirect('worldPage')
+                return redirect('home')
             else:
                 messages.error(request, result)
 

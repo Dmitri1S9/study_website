@@ -23,3 +23,5 @@ Bottleneck~=1.5.0
 
 # Deploy
 gunicorn~=23.0.0
+
+djangorestframework==3.16.1
