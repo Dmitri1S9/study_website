@@ -1,21 +1,25 @@
-from django.test import TestCase
-from rest_framework.test import APIClient
 from rest_framework import status
 from apps.tracker.tests.base import BaseAPITest
 
 
 class GenericAPITest(BaseAPITest):
-    def test_post(self):
+    def generic_test(self, func: callable, status_code):
         if type(self) is GenericAPITest:
             return
+        self.response = func()
+        self.assertEqual(self.response.status_code, status_code)
+        if func == self._get:
+            self.assertEqual(len(self.response.data), 1)
 
-        response = self._post()
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_post(self):
+        self.generic_test(self._post, status.HTTP_201_CREATED)
 
     def test_get(self):
-        if type(self) is GenericAPITest:
-            return
+        self.generic_test(self._get, status.HTTP_200_OK)
 
-        self.response = self._get()
-        self.assertEqual(self.response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(self.response.data), 1)
+    def test_update(self):
+        self.generic_test(self._update, status.HTTP_200_OK)
+
+    def test_delete(self):
+        self.generic_test(self._delete, status.HTTP_204_NO_CONTENT)

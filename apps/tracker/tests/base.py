@@ -7,6 +7,7 @@ class BaseAPITest(TestCase):
         self.client = APIClient()
         self.status = status
         self.data = None
+        self.updated_data = None
 
     def __repr__(self) -> str:
         raise NotImplementedError("Subclasses must implement __repr__ method")
@@ -20,5 +21,11 @@ class BaseAPITest(TestCase):
         self._post()
         return self.client.get(f'/api/{repr(self)}/')
 
+    def _update(self):
+        obj_id = self._post().data['id']
+        return self.client.put(f'/api/{repr(self)}/{obj_id}/', self.updated_data, format='json')
 
+    def _delete(self):
+        obj_id = self._post().data['id']
+        return self.client.delete(f'/api/{repr(self)}/{obj_id}/')
 

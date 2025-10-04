@@ -1,5 +1,4 @@
 from rest_framework.test import APIClient
-from rest_framework import status
 from ..models import Title, Character
 from .general_tests import GenericAPITest
 
@@ -13,6 +12,8 @@ class CharacterAPITest(GenericAPITest):
             "title_id": self.title.id,
             "description": "Strongest soldier"
         }
+        self.updated_data = self.data.copy()
+        self.updated_data["name"] = "Eren"
 
     def __repr__(self):
         return "characters"
