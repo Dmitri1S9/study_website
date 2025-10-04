@@ -20,5 +20,6 @@ class Character(models.Model):
         return self.name
 
 class ParsingMaterials(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name="parsing_materials")
     link = models.URLField(null=False, blank=False)

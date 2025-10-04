@@ -1,34 +1,32 @@
-name: Archangel  # Унифицированное имя окружения (с заглавной буквы)
+name: Archangel
 channels:
-  - conda-forge  # Основной канал для свежих пакетов
-  - defaults     # Канал по умолчанию
+  - conda-forge
+  - defaults
   - https://repo.anaconda.com/pkgs/main
   - https://repo.anaconda.com/pkgs/r
 
 dependencies:
-  # Базовые системные зависимости
-  - python=3.11.11=he870216_0  # Фиксированная версия
+  - python=3.11.11=he870216_0
   - pip=25.0
 
-  # Основные пакеты Python
   - django
+  - djangorestframework
   - numpy
   - pandas
   - scipy
   - pillow
 
-  # Системные библиотеки (оптимизированный список)
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=5.1=1_gnu
   - libgcc-ng=11.2.0
   - libstdcxx-ng=11.2.0
   - openssl=3.0.16
+  - praw=7.8.1
 
-  # Дополнительные инструменты
   - pip:
     - django-environ
-    - psycopg2-binary  # Для работы с PostgreSQL
-    - gunicorn         # Для production-развёртывания
+    - psycopg2-binary
+    - gunicorn
     - django-debug-toolbar
 
 prefix: /home/darthundeddu/miniconda3/envs/Archangel
