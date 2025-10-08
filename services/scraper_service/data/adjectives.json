@@ -1,0 +1,54 @@
+{
+  "Power_and_Dominance": [
+    "powerful", "strong", "dominant", "influential", "commanding", "mighty", "ruthless",
+    "authoritative", "brave", "fearless", "courageous", "unyielding", "decisive", "determined",
+    "bold", "confident", "assertive", "unyielding", "unyielding", "unyielding", "relentless",
+    "merciless", "intimidating", "formidable", "strategic", "tactical"
+  ],
+  "Empathy_and_Emotion": [
+    "kind", "compassionate", "empathetic", "gentle", "loving", "warm", "tender",
+    "affectionate", "romantic", "sensitive", "caring", "softhearted", "benevolent",
+    "understanding", "sympathetic", "gracious", "forgiving", "selfless", "emotional",
+    "sentimental", "protective"
+  ],
+  "Intellect_and_Wisdom": [
+    "intelligent", "clever", "wise", "rational", "logical", "strategic", "analytical",
+    "brilliant", "perceptive", "insightful", "thoughtful", "curious", "innovative",
+    "inventive", "pragmatic", "calculated", "educated", "skeptical", "critical", "reflective"
+  ],
+  "Order_and_Chaos": [
+    "disciplined", "organized", "methodical", "controlled", "obedient", "focused",
+    "strict", "precise", "meticulous", "orderly", "careful", "structured",
+    "chaotic", "rebellious", "reckless", "unpredictable", "wild", "erratic", "impulsive"
+  ],
+  "Morality_and_Ethics": [
+    "honest", "honorable", "noble", "faithful", "loyal", "devoted", "pure",
+    "righteous", "corrupt", "sinister", "evil", "wicked", "cruel", "vicious",
+    "deceptive", "manipulative", "arrogant", "selfish", "hypocritical", "virtuous"
+  ],
+  "Emotion_and_Passion": [
+    "fiery", "passionate", "hot-blooded", "lustful", "intense", "romantic",
+    "jealous", "possessive", "dramatic", "impulsive", "flirtatious", "fervent",
+    "seductive", "desperate", "ardent", "devoted", "moody", "emotional"
+  ],
+  "Isolation_and_Connection": [
+    "lonely", "solitary", "introverted", "quiet", "reserved", "distant",
+    "isolated", "detached", "cold", "stoic", "apathetic", "disconnected",
+    "friendly", "outgoing", "charming", "charismatic", "sociable", "talkative"
+  ],
+  "Body_and_Physicality": [
+    "tall", "short", "slim", "fat", "muscular", "graceful", "beautiful",
+    "handsome", "ugly", "elegant", "strong", "fragile", "delicate", "sturdy",
+    "swift", "nimble", "agile", "stiff", "scarred", "robotic", "mechanical"
+  ],
+  "Mind_and_Spirit": [
+    "calm", "focused", "peaceful", "balanced", "wise", "serene", "patient",
+    "spiritual", "devout", "fanatical", "obsessive", "paranoid", "mad", "insane",
+    "broken", "haunted", "conflicted", "determined", "resilient"
+  ],
+  "Aesthetic_and_Style": [
+    "dark", "light", "bright", "mysterious", "elegant", "simple", "ornate",
+    "refined", "rough", "clean", "beautiful", "graceful", "gothic", "minimalist",
+    "futuristic", "ancient", "divine", "sinister", "majestic", "humble"
+  ]
+}
