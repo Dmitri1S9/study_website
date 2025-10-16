@@ -17,12 +17,12 @@ USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 class FetchRedditAsync:
     @staticmethod
     def __get_patterns() -> List[str]:
-        with open(BASE_DIR / "scraper_service/patterns.json", "r", encoding="utf-8") as f:
+        with open(BASE_DIR / "scraper_service/data/patterns.json", "r", encoding="utf-8") as f:
             return json.load(f)["core_patterns"]
 
     @staticmethod
     def __clear_db() -> None:
-        db_path = BASE_DIR / "scraper_service/db.json"
+        db_path = BASE_DIR / "scraper_service/data/db.json"
         if db_path.exists():
             with open(db_path, "w", encoding="utf-8") as _:
                 json.dump({}, _, ensure_ascii=False, indent=2)
@@ -31,7 +31,7 @@ class FetchRedditAsync:
 
     @staticmethod
     def __save_to_db(character_name: str, entry: Dict[str, Any]) -> None:
-        db_path = BASE_DIR / "scraper_service/db.json"
+        db_path = BASE_DIR / "scraper_service/data/db.json"
         if db_path.exists():
             with open(db_path, "r", encoding="utf-8") as f:
                 db = json.load(f)
@@ -92,7 +92,7 @@ class FetchRedditAsync:
             entry = await self.__fetch_post_with_comments(post_id, limit_comments)
             if entry:
                 self.__save_to_db(query, entry)
-                await asyncio.sleep(1) # to avoid rate limit
+                await asyncio.sleep(10) # to avoid rate limit
 
     async def __fetch_posts(self, post_title: str, limit: int = 10) -> Set[str]:
         """
@@ -119,7 +119,6 @@ class FetchRedditAsync:
             "text": post.selftext,
             "title": post.title,
             "score": post.score,
-            "post_created": post.created_utc,
             "comments": []
         }
 
@@ -130,7 +129,6 @@ class FetchRedditAsync:
                 comments.append({
                     "text": comment.body,
                     "score": comment.score,
-                    "comment_created": comment.created_utc
                 })
         entry["comments"] = comments
         return entry
