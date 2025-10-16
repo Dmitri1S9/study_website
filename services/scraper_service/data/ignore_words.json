@@ -1,9 +1,12 @@
 [
-  "early", "former", "last", "next", "previous", "inaugural", "first", "second", "terminal",
-  "initiatory", "maiden", "foremost", "former-time", "past", "ongoing", "recent", "upcoming",
-  "near", "far", "distant", "close", "left", "right", "adjacent", "side_by_side", "over",
-  "above", "below", "top", "bottom", "inside", "outside", "behind", "before", "next_to",
-  "good", "bad", "great", "awesome", "fine", "sure", "well", "okay", "ok", "not_bad",
-  "excellent", "cool", "fun", "amazing", "amusing", "hilarious",
-  "decent", "best", "worst", "favorite", "favourite", "preferred", "like"
+  "love", "like", "adore", "hate", "dislike", "enjoy", "prefer", "wish", "hope", "fear", "want",
+  "cool", "nice", "awesome", "great", "good", "bad", "fine", "beautiful", "ugly", "amazing", "wonderful",
+  "terrible", "awful", "interesting", "fun", "boring", "weird", "strange", "sweet", "sad", "happy",
+  "actually", "really", "literally", "maybe", "kinda", "sort", "pretty", "sure", "whatever", "fine", "yeah",
+  "ok", "right", "definitely", "basically", "just", "like", "so", "totally", "absolutely", "super",
+  "friend", "buddy", "bro", "dude", "mate", "cute", "hot", "cool", "chill", "wild", "respect", "support",
+  "admire", "smart", "genius", "clever", "based", "cringe", "sigma", "beta", "npc", "sus", "vibe", "mood",
+  "energy", "triggered", "salty", "edgy", "woke", "simp", "toxic", "wholesome", "very", "so", "totally",
+  "super", "absolutely", "basically", "kinda", "sorta", "like", "just", "really", "good", "bad", "new",
+  "old", "nice", "real", "honestly", "frankly", "seriously", "clearly"
 ]

@@ -1,0 +1,39 @@
+{
+    "conservatism": [
+        "conservative",
+        "traditional",
+        "right wing",
+        "establishment",
+        "status quo",
+        "orthodox",
+        "patriotic",
+        "lawful"
+    ],
+    "liberalism": [
+        "liberal",
+        "open minded",
+        "progressive",
+        "tolerant",
+        "inclusive",
+        "modern",
+        "flexible",
+        "egalitarian"
+    ],
+    "progressivism": [
+        "forward thinking",
+        "innovative",
+        "reformist",
+        "modernist",
+        "activist",
+        "visionary",
+        "change oriented"
+    ],
+    "authoritarianism": [
+        "authoritarian",
+        "strict",
+        "disciplined",
+        "commanding",
+        "orderly",
+        "structured"
+    ]
+}
