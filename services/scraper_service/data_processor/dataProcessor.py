@@ -3,10 +3,10 @@ import math
 from collections import Counter
 from typing import List, Dict, Any
 from wordAnalyse import get_related_words
-from scraper_service.data_processor.data_handler import DataHandler
+from scraper_service.data_processor.dataHandler import DataHandler
 from textClean import TextCleaner
 
-class TextDataProcessor(DataHandler):
+class DataProcessor(DataHandler):
     @staticmethod
     def _get_most_relevant_attributes(most_relevant_attributes, min_significance : int = 0.7) -> Dict:
         res = {} # return dict
@@ -18,18 +18,6 @@ class TextDataProcessor(DataHandler):
                           if v >= min_significance_level
             }
         return res
-
-    def __enter__(self):
-        self.textProcessor = TextCleaner
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        # self._load_new_words_to_bd()
-        # на данный момент не используется, так как в конечном итоге сильно загрязняет базу,
-        # при этом скорость работы на данный момент приемлемая
-        # из кода удалено все что с этим связано
-        # там не много, проще потом заново написать чем разбираться
-        return False
 
     def __str__(self):
         if not self._results: return "No results available."
@@ -51,7 +39,7 @@ class TextDataProcessor(DataHandler):
                 self._ignore_words.add(word)
 
     def _process_text(self):
-        with open("../data/db.json", "r", encoding="utf-8") as file:
+        with open("data/db.json", "r", encoding="utf-8") as file:
             database: Dict[str, Any] = json.load(file)
         for user_name, user_posts in database.items():
             for post in user_posts:
@@ -125,6 +113,6 @@ class TextDataProcessor(DataHandler):
         print(self)
 
 if __name__ == "__main__":
-    with TextDataProcessor() as processor:
+    with DataProcessor() as processor:
         processor.run()
 

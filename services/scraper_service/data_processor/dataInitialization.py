@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Set, List, Dict
 
 
-class DataHandler:
+class DataCollector:
     def __init__(self) -> None:
         self._ignore_words = self.get_ignore_words()
         self._words : Set[str] = set()
@@ -18,7 +18,7 @@ class DataHandler:
         Loads the database from a JSON file and initializes the paths to words.
         :return: None
         """
-        with open("../data/person_stats_pattern/stats.json", "r", encoding="utf-8") as file:
+        with open("data/stats.json", "r", encoding="utf-8") as file:
             data = json.load(file)
             self._database_new = data
             self._find_words_path_in_db(data)
@@ -48,7 +48,7 @@ class DataHandler:
         """
         Loads and returns a set of words to ignore from a JSON file.
         """
-        with open("../data/ignore_words.json", "r", encoding="utf-8") as file:
+        with open("data/ignore_words.json", "r", encoding="utf-8") as file:
             return set(word.strip().lower() for word in json.load(file))
 
     def set_new_ignore_word(self, new_words: Set[str]) -> None:
@@ -57,5 +57,5 @@ class DataHandler:
         """
         ignore_words = self.get_ignore_words()
         ignore_words.update(word.strip().lower() for word in new_words)
-        with open("../data/ignore_words.json", "w", encoding="utf-8") as file:
+        with open("data/ignore_words.json", "w", encoding="utf-8") as file:
             json.dump(list(ignore_words), file, ensure_ascii=False, indent=4)
