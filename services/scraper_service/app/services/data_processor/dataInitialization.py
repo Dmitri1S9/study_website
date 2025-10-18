@@ -1,26 +1,30 @@
 import json
 from collections import Counter
 from typing import Set, List, Dict
-
+from scraper_service.app.services.db import Database
+from textCleaner import TextCleaner
+from scraper_service.app.services.db import Database
 
 class DataCollector:
-    def __init__(self) -> None:
+    def __init__(self, database: Database) -> None:
         self._ignore_words = self.get_ignore_words()
         self._words : Set[str] = set()
         self._words_counter : Counter[str] = Counter()
-        self._database_new : Dict = {}
+        self._result_stats : Dict = {}
         self._results : Dict = {}
         self._get_path : Dict = {}
         self._new_words : Set[str] = set()
+        self.db = database
+        self.textProcessor = TextCleaner
 
     def _create_result_database(self) -> None:
         """
         Loads the database from a JSON file and initializes the paths to words.
         :return: None
         """
-        with open("data/stats.json", "r", encoding="utf-8") as file:
+        with open("../data/stats.json", "r", encoding="utf-8") as file:
             data = json.load(file)
-            self._database_new = data
+            self._result_stats = data
             self._find_words_path_in_db(data)
 
     def _find_words_path_in_db(self, data, paths_to_word: List[str] = None) -> None:
@@ -48,7 +52,7 @@ class DataCollector:
         """
         Loads and returns a set of words to ignore from a JSON file.
         """
-        with open("data/ignore_words.json", "r", encoding="utf-8") as file:
+        with open("../data/ignore_words.json", "r", encoding="utf-8") as file:
             return set(word.strip().lower() for word in json.load(file))
 
     def set_new_ignore_word(self, new_words: Set[str]) -> None:

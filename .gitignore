@@ -6,3 +6,5 @@ __pycache__/
 /.env
 /apps/mainPage/migrations/
 /users/mainPage/migrations/
+/services/.env
+

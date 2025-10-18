@@ -5,9 +5,10 @@ from dotenv import load_dotenv
 import asyncpraw
 import asyncio
 from typing import Any, Dict, List, Set, Optional
+from scraper_service.app.services.db import Database
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR.parent / ".env")
 
 CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
@@ -17,31 +18,18 @@ USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 class FetchRedditAsync:
     @staticmethod
     def __get_patterns() -> List[str]:
-        with open(BASE_DIR / "scraper_service/data/patterns.json", "r", encoding="utf-8") as f:
+        with open(BASE_DIR / "services/data/patterns.json", "r", encoding="utf-8") as f:
             return json.load(f)["core_patterns"]
 
     @staticmethod
     def __clear_db() -> None:
-        db_path = BASE_DIR / "scraper_service/data/db.json"
-        if db_path.exists():
-            with open(db_path, "w", encoding="utf-8") as _:
-                json.dump({}, _, ensure_ascii=False, indent=2)
-        else:
-            raise FileNotFoundError(f"File {db_path} not found")
+        pass
 
     @staticmethod
-    def __save_to_db(character_name: str, entry: Dict[str, Any]) -> None:
-        db_path = BASE_DIR / "scraper_service/data/db.json"
-        if db_path.exists():
-            with open(db_path, "r", encoding="utf-8") as f:
-                db = json.load(f)
-            if character_name not in db:
-                db[character_name] = []
-            db[character_name].append(entry)
-            with open(db_path, "w", encoding="utf-8") as _:
-                json.dump(db, _, ensure_ascii=False, indent=4)
-        else:
-            raise FileNotFoundError(f"File {db_path} not found")
+    def __save_to_db(db: Database, character_name: str, entry: Dict[str, Any]) -> None:
+        if character_name not in db.character_data:
+            db.character_data[character_name] = []
+        db.character_data[character_name].append(entry)
 
     def __init__(self, debug: bool = False) -> None:
         self.__reddit: Optional[asyncpraw.Reddit] = None
@@ -57,13 +45,16 @@ class FetchRedditAsync:
         if self.__reddit:
             await self.__reddit.close()
 
-    async def execute(self, character_names: str, limit_posts:int=10, limit_comments:int=100) -> None:
+    async def execute(self, character_name: str, limit_posts:int=10, limit_comments:int=100) -> Database:
+        db = Database(character_name)
         for pattern in self.__pattern:
             await self.__execute_with_query(
-                (character_names + " " + pattern).strip(),
+                db,
+                (character_name + " " + pattern).strip(),
                 limit_posts=limit_posts,
                 limit_comments=limit_comments
             )
+        return db
 
     async def __init_reddit(self) -> None:
         if not self.__reddit:
@@ -73,7 +64,8 @@ class FetchRedditAsync:
                 user_agent=USER_AGENT
             )
 
-    async def __execute_with_query(self, query: str,
+    async def __execute_with_query(self, db: Database,
+                                   query: str,
                                    limit_posts: int = 10,
                                    limit_comments: int = 100
                                    ) -> None:
@@ -91,8 +83,8 @@ class FetchRedditAsync:
         for post_id in posts:
             entry = await self.__fetch_post_with_comments(post_id, limit_comments)
             if entry:
-                self.__save_to_db(query, entry)
-                await asyncio.sleep(10) # to avoid rate limit
+                self.__save_to_db(db, query, entry)
+                await asyncio.sleep(3) # to avoid rate limit
 
     async def __fetch_posts(self, post_title: str, limit: int = 10) -> Set[str]:
         """
