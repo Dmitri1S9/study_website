@@ -1,0 +1,47 @@
+{
+    "attitude": [
+        64
+    ],
+    "appearance": {
+        "features": {
+            "long": 344
+        },
+        "color_palette": {
+            "black": 97
+        },
+        "emotions": {
+            "grievous": 1193
+        },
+        "clothing": {
+            "cape": 59,
+            "scale": 64
+        }
+    },
+    "character": {
+        "introversion": "61%",
+        "openness": "83%",
+        "discipline": "97%",
+        "ambition": "96%",
+        "confidence": "70%",
+        "humility": "20%",
+        "empathy": "33%",
+        "honesty": "78%",
+        "aggressiveness": "92%",
+        "patience": "96%",
+        "humor": "27%",
+        "romanticism": "37%",
+        "creativity": "71%",
+        "rationality": "84%",
+        "leadership": "95%",
+        "independence": "57%",
+        "curiosity": "54%",
+        "stress_resilience": "68%",
+        "sociability": "2%"
+    },
+    "politics": {
+        "populism": 231
+    },
+    "professions": {
+        "general": 756
+    }
+}

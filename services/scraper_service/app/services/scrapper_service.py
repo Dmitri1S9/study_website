@@ -1,8 +1,6 @@
 import asyncio
 import json
 import aiofiles
-from nltk import accuracy
-
 from scraper_service.app.services.data_processor.DataCollector import DataCollector
 from scraper_service.app.services.data_processor.redditFetcher import FetchRedditAsync
 
@@ -32,5 +30,5 @@ class Scrapper:
             await f.write(json.dumps(results, indent=4, ensure_ascii=False))
 
 if __name__ == "__main__":
-    scraper = Scrapper("General Grievous")
+    scraper = Scrapper("Arima Kana", 10, 100)
     print(asyncio.run(scraper.run()))
