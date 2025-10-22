@@ -12,7 +12,6 @@ async def root():
 @app.get("/get_character")
 async def get_character(character_name: str, debug:bool = False, user=Depends(verify_token)):
     if debug:
-        await asyncio.sleep(3)  # for example of a class work
         return {"status": "ok", "data": get_test_character_data()}
     else:
         try:
