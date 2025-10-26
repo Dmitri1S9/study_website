@@ -53,17 +53,11 @@ class DataCollector(DataInit):
 
 
     def collect_data(self):
-        # Attitude
         self.collect_with_traits("attitude")
-        # Appearance
         self.collect_with_traits("appearance")
-        # clothing
         self.collect_with_attr("clothing")
-        # Politics
         self.collect_with_attr("politics")
-        # Professions
         self.collect_with_attr("professions")
-        # Character
         self.results["character"]: Dict = {thema: [0, 0] for thema in
                                             self.result_stats["character"]["positive_traits"]}
         for thema in self.result_stats["character"]["positive_traits"]:
