@@ -7,8 +7,8 @@ import asyncpraw
 import asyncio
 from typing import Any, Dict, List, Set, Optional
 
-from scraper_service.app.services.data_processor.DataCollector import DataCollector
-from scraper_service.app.services.data_processor.wordAnalyser import get_related_words
+from services.data_processor.DataCollector import DataCollector
+from services.data_processor.wordAnalyser import get_related_words
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR.parent.parent / ".env")

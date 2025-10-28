@@ -1,5 +1,4 @@
     services:
-      # Сервис для базы данных (PostgreSQL)
       db:
         image: postgres:14
         environment:
@@ -11,7 +10,6 @@
         networks:
           - backend
 
-      # Сервис для Django с Gunicorn
       archangel:
         build: .
         command: gunicorn Archangel.wsgi:application --bind 0.0.0.0:5000
@@ -24,7 +22,6 @@
         networks:
           - backend
 
-      # Сервис для NGINX
       nginx:
         build:
           context: ./nginx
@@ -38,6 +35,16 @@
           - archangel
         networks:
           - backend
+
+      fetcher:
+        build:
+          context: ./services/scraper_service
+          dockerfile: Dockerfile
+        container_name: fetcher
+        ports:
+          - "8044:8044"
+        env_file:
+          - .env
 
 
     volumes:

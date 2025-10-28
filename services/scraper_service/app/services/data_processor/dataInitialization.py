@@ -2,7 +2,7 @@ import json
 from collections import Counter
 from pathlib import Path
 from typing import Set, List, Dict
-from scraper_service.app.services.data_processor.textCleaner import TextCleaner
+from services.data_processor.textCleaner import TextCleaner
 
 class DataInit:
     def __init__(self, character_name: str) -> None:

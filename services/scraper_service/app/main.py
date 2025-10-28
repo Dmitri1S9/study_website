@@ -2,7 +2,7 @@ from pathlib import Path
 import asyncio
 from fastapi import FastAPI, HTTPException, Depends
 import json
-from scraper_service.app.services.scrapper_service import Scrapper
+from services.scrapper_service import Scrapper
 from auth import verify_token
 
 app = FastAPI(title="Character Scraper API")

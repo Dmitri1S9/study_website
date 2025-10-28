@@ -2,7 +2,7 @@ import math
 from collections import Counter
 from typing import Dict, List
 
-from scraper_service.app.services.data_processor.dataInitialization import DataInit
+from services.data_processor.dataInitialization import DataInit
 
 
 class DataCollector(DataInit):
