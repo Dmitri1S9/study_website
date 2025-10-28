@@ -1,8 +1,8 @@
 import asyncio
 import json
 import aiofiles
-from scraper_service.app.services.data_processor.DataCollector import DataCollector
-from scraper_service.app.services.data_processor.redditFetcher import FetchRedditAsync
+from services.data_processor.DataCollector import DataCollector
+from services.data_processor.redditFetcher import FetchRedditAsync
 
 class Scrapper:
     def __init__(self, character_name, amount_of_posts: int =3,
