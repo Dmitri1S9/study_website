@@ -1,0 +1,59 @@
+{
+  "attitude": 64,
+  "appearance": 83,
+  "clothing": {
+    "sexy": 0,
+    "casual": 53,
+    "formal": 0,
+    "elegant": 0,
+    "ragged": 82,
+    "practical": 0
+  },
+  "politics": {
+    "conservatism": 0,
+    "liberalism": 0,
+    "progressivism": 49,
+    "authoritarianism": 0,
+    "anarchism": 0,
+    "communism": 0,
+    "fascism": 0,
+    "socialism": 0,
+    "libertarianism": 0,
+    "nationalism": 0,
+    "environmentalism": 0,
+    "democracy": 43,
+    "populism": 93
+  },
+  "professions": {
+    "academic": 0,
+    "technical": 0,
+    "creative": 1150,
+    "manual": 0,
+    "military": 473,
+    "political": 0,
+    "business": 0,
+    "religious": 0,
+    "fantasy": 658
+  },
+  "character": {
+    "introversion": 55,
+    "openness": 90,
+    "discipline": 95,
+    "ambition": 98,
+    "confidence": 25,
+    "humility": 54,
+    "empathy": 37,
+    "honesty": 70,
+    "aggressiveness": 94,
+    "patience": 71,
+    "humor": 30,
+    "romanticism": 79,
+    "creativity": 83,
+    "rationality": 38,
+    "leadership": 85,
+    "independence": 81,
+    "curiosity": 67,
+    "stress_resilience": 68,
+    "sociability": 22
+  }
+}

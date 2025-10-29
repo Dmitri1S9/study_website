@@ -40,7 +40,7 @@ DEBUG = env.bool('DEBUG', False)
 
 INSTALLED_APPS = [
     'apps.users',
-    'apps.mainPage',
+    'apps.main_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

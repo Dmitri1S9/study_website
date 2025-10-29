@@ -8,7 +8,8 @@ from auth import verify_token
 app = FastAPI(title="Character Scraper API")
 @app.get("/")
 async def root():
-    return {"message": "Scraper API is alive 🚀"}
+    return {"status": "ok", "message": "Scraper API is alive 🚀"}
+
 @app.get("/get_character")
 async def get_character(character_name: str, debug:bool = False, user=Depends(verify_token)):
     if debug:
@@ -24,7 +25,7 @@ async def get_character(character_name: str, debug:bool = False, user=Depends(ve
             raise HTTPException(status_code=500, detail=str(e))
 
 def get_test_character_data():
-    file_path = Path(__file__).resolve().parent / "services" / "results_general_grievous.json"
+    file_path = Path(__file__).resolve().parent / "services" / "results_reze.json"
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
 
