@@ -20,7 +20,7 @@ class Scrapper:
             )
             bd.collect_data()
             bd.normalize()
-            await self._save_result_async(bd.results)
+            # await self._save_result_async(bd.results)
             return bd
 
     async def _save_result_async(self, results: dict):
@@ -30,5 +30,5 @@ class Scrapper:
             await f.write(json.dumps(results, indent=4, ensure_ascii=False))
 
 if __name__ == "__main__":
-    scraper = Scrapper("Arima Kana", 10, 100)
+    scraper = Scrapper("Reze", 10, 100)
     print(asyncio.run(scraper.run()))
