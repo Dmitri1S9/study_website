@@ -1,8 +1,5 @@
 # Archangel
 
-## SQL-schema:
-https://drawsql.app/teams/pkb/diagrams/archangel
-
 
 How to start
 ------------
