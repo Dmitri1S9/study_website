@@ -25,12 +25,12 @@ environ.Env.read_env(env_file=BASE_DIR / '.env')
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '192.168.217.129',  # Ваш IP-адрес
-]
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = [
+#     'localhost',
+#     '127.0.0.1',
+#     '192.168.217.129',  # Ваш IP-адрес
+# ]
 DEBUG = env.bool('DEBUG', False)
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Список разрешенных хостов
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Если используете HTTPS через Nginx
@@ -96,6 +96,13 @@ DATABASES = {
         'PORT': env("DB_PORT"),
     }
 }
+
+# if you need to test on localhost switch to this code
+# CELERY_BROKER_URL = "redis://localhost:6379/0"
+# CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

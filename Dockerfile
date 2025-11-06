@@ -13,9 +13,6 @@ COPY . /app/
 
 EXPOSE 5000
 
-#RUN python manage.py makemigrations
-#RUN python manage.py migrate
 RUN /opt/conda/envs/Archangel/bin/python manage.py collectstatic --noinput
-#RUN python manage.py test
 
 CMD ["/opt/conda/envs/Archangel/bin/gunicorn", "--bind", "0.0.0.0:5000", "Archangel.wsgi:application"]

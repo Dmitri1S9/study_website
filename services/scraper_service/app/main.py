@@ -16,13 +16,15 @@ async def get_character(character_name: str, debug:bool = False, user=Depends(ve
         return {"status": "ok", "data": get_test_character_data()}
     else:
         try:
-            scrapper = Scrapper(character_name, amount_of_posts=5, amount_of_comments_pro_post=100)
+            scrapper = Scrapper(character_name, amount_of_posts=30, amount_of_comments_pro_post=100)
             data = await scrapper.run()
             if data is None:
+                print("Data is None")
                 raise ValueError("Data is None")
             return {"status": "ok", "data": data.results}
         except Exception as e:
-            raise HTTPException(status_code=500, detail=str(e))
+            return {"status": "error", "data": e}
+
 
 def get_test_character_data():
     file_path = Path(__file__).resolve().parent / "services" / "results_reze.json"
