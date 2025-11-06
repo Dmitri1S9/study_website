@@ -5,7 +5,7 @@ from services.data_processor.DataCollector import DataCollector
 from services.data_processor.redditFetcher import FetchRedditAsync
 
 class Scrapper:
-    def __init__(self, character_name, amount_of_posts: int =3,
+    def __init__(self, character_name, amount_of_posts: int = 30,
                  amount_of_comments_pro_post: int = 100):
         self.character_name = character_name
         self.amount_of_posts = amount_of_posts
@@ -30,5 +30,5 @@ class Scrapper:
             await f.write(json.dumps(results, indent=4, ensure_ascii=False))
 
 if __name__ == "__main__":
-    scraper = Scrapper("Reze", 10, 100)
+    scraper = Scrapper("Reze", 30, 100)
     print(asyncio.run(scraper.run()))

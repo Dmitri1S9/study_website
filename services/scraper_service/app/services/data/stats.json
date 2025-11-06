@@ -3165,7 +3165,7 @@
     "professions": {
         "academic": [
           "teacher","professor","lecturer","student","scholar","researcher","scientist","chemist",
-          "physicist","mathematician","biologist","philosopher","writer","author","educator",
+          "physicist","mathematician","biologist","philosopher","writer","educator",
           "tutor","instructor","historian","analyst","theorist","academic","linguist",
           "library","thesis","study","research","experiment","observe","discover","analyze",
           "calculate","teach","explain","lecture","investigate","hypothesis","paper","seminar",
@@ -3183,13 +3183,16 @@
           "solder","create","connect","power","invent","tech","network","system","AI","robotics"
         ],
         "creative": [
-          "artist","painter","musician","composer","singer","writer","poet","actor","actress",
-          "performer","director","designer","illustrator","filmmaker","photographer","model",
-          "sculptor","dancer","storyteller","creator","author","draw","paint","sketch","sing",
-          "play","perform","design","create","compose","film","shoot","write","stage","edit",
-          "draws","color","choreograph","improvise","illustrate","craft","decorate","fashion",
-          "carve","make","artistic","visual","aesthetic","melody","lyrics","scene","theater",
-          "stage","camera","brush","canvas","sculpt","imagine","express","portray","compose"
+          "artist", "painter", "musician", "composer", "poet",
+          "actor", "actress", "director", "designer", "illustrator",
+          "filmmaker", "photographer", "sculptor", "dancer", "creator",
+          "author", "performer", "storyteller", "songwriter", "editor",
+          "architect", "fashion designer", "game designer", "screenwriter",
+          "novelist", "producer", "animator", "cartoonist", "voice actor",
+          "draw", "paint", "sketch", "sing", "play", "design", "create", "dance", "idol", "k-pop",
+          "compose", "animate",
+          "artistic", "visual", "aesthetic", "melody", "lyrics", "theater", "camera", "brush", "canvas",
+          "express", "portray", "invent", "inspire"
         ],
         "manual": [
           "worker","farmer","miner","builder","blacksmith","carpenter","mason","gardener",
@@ -3201,50 +3204,48 @@
           "maintain","carry tools","manual","sweat","grind","smoke","weld","digging","forge"
         ],
         "military": [
-          "soldier","officer","captain","commander","general","sergeant","mercenary","fighter",
-          "sniper","guard","warrior","paladin","samurai","knight","archer","ranger","assassin",
-          "spy","agent","veteran","bounty hunter","defend","attack","command","shoot","fight",
-          "march","salute","battle","kill","protect","guard","patrol","train","tactical","plan",
-          "aim","sword","gun","shield","armor","uniform","military","orders","mission","rank",
-          "serve","duty","frontline","squad","drill","battlefield","charge","tactics","combat",
-          "target","retreat","attack","snipe","ambush","march","scout","secure","discipline"
+          "soldier","officer","commander","general","mercenary",
+          "fighter","warrior","sniper","guard","knight",
+          "samurai","assassin","spy","agent","veteran",
+          "combat","mission","duty",
+          "armor","uniform","weapon","defend","attack","protect",
+          "strategy","tactics","battlefield","squad","platoon", "saber", "blaster", "lightsaber", "army"
         ],
+
         "political": [
-          "leader","president","minister","mayor","senator","diplomat","advisor","ambassador",
-          "politician","counselor","judge","lawyer","attorney","activist","campaigner",
-          "representative","parliament","debate","vote","speech","elect","lead","govern",
-          "policy","rule","law","constitution","justice","court","state","nation","governor",
-          "official","authority","negotiate","negotiate","argue","decide","petition","approve",
-          "organize","command","council","assembly","party","democracy","speech","election",
-          "public","press","authority","decision","leadership","movement","reform","parley"
+          "president","minister","senator","diplomat","ambassador",
+          "politician","judge","lawyer","activist","representative",
+          "parliament","debate","vote","election","policy",
+          "law","justice","court","govern","authority",
+          "state","nation","council","assembly","party",
+          "movement","reform","leadership","public","government", "furer"
         ],
+
         "business": [
-          "manager","executive","director","ceo","entrepreneur","banker","trader","salesman",
-          "clerk","cashier","accountant","auditor","broker","analyst","secretary","assistant",
-          "marketer","advertiser","investor","consultant","planner","negotiator","office",
-          "deal","profit","market","company","firm","brand","stock","trade","client","sale",
-          "invest","earn","manage","organize","budget","buy","sell","account","calculate",
-          "meeting","report","contract","presentation","promotion","advertisement","pitch",
-          "negotiate","spreadsheet","finance","email","startup","deadline","agenda","offer"
+          "manager","executive","ceo","entrepreneur","banker",
+          "trader","salesman","accountant","consultant",
+          "investor","planner","office","market","company",
+          "firm","profit","brand","stock","trade","client",
+          "invest","earn","budget","buy","sell","contract",
+          "finance","startup","deadline","agenda","offer", "corporation"
         ],
+
         "religious": [
-          "priest","monk","nun","bishop","cleric","pastor","preacher","oracle","prophet",
-          "healer","exorcist","saint","missionary","cultist","acolyte","worshiper","sacrifice",
-          "pray","chant","bless","confess","preach","sermon","holy","divine","temple","church",
-          "cathedral","altar","ritual","faith","belief","religion","spirit","god","angel",
-          "cross","bible","holy book","sacred","soul","purify","chanting","worship","meditate",
-          "kneel","devotion","fast","forgive","repent","redeem","ritual","ceremony","blessing",
-          "divinity","pray for","seek light","serve","sin","salvation"
+          "priest","monk","nun","bishop","pastor","preacher",
+          "prophet","saint","missionary","worshiper","sacrifice",
+          "pray","bless","confess","sermon","holy","divine",
+          "temple","church","faith","belief","spirit","god",
+          "angel","soul","repent","redeem","ritual","ceremony"
         ],
+
         "fantasy": [
-          "wizard","mage","sorcerer","witch","necromancer","paladin","warlock","alchemist",
-          "bard","cleric","assassin","ranger","knight","warrior","beast tamer","summoner",
-          "illusionist","druid","monk","samurai","demon","angel","vampire","hunter","swordsman",
-          "dragonslayer","elf","orc","dwarf","priestess","enchanter","spell","magic","curse",
-          "ritual","summon","portal","rune","enchant","forge","spellbook","crystal","wand",
-          "staff","summon","battle","train","conjure","cast","invoke","banish","fight","duel",
-          "protect","bless","curse","chant","channel","battlecry","power","ritual circle","ancient",
-          "spells","dark arts","holy light","arcane","sacrifice","sorcery","magic power"
+          "wizard","mage","sorcerer","witch","alchemist",
+          "cleric","knight","warrior","samurai","demon",
+          "angel","vampire","hunter","elf","orc","dwarf",
+          "priestess","spell","magic","summon","rune",
+          "enchant","crystal","wand","staff","duel","curse",
+          "ritual","ancient","arcane","dark arts","holy light"
         ]
+
       }
 }

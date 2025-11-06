@@ -2,31 +2,20 @@ name: Archangel
 channels:
   - conda-forge
   - defaults
-  - https://repo.anaconda.com/pkgs/main
-  - https://repo.anaconda.com/pkgs/r
-
 dependencies:
-  - python=3.11.11=he870216_0
-  - pip=25.0
-
+  - python=3.11
+  - pip
   - django
   - djangorestframework
   - numpy
   - pandas
   - scipy
   - pillow
-
-  - _libgcc_mutex=0.1=main
-  - _openmp_mutex=5.1=1_gnu
-  - libgcc-ng=11.2.0
-  - libstdcxx-ng=11.2.0
-  - openssl=3.0.16
-  - praw=7.8.1
-
+  - celery
+  - gunicorn
+  - requests
   - pip:
-    - django-environ
-    - psycopg2-binary
-    - gunicorn
-    - django-debug-toolbar
-
-prefix: /home/darthundeddu/miniconda3/envs/Archangel
+      - redis
+      - django-environ
+      - psycopg2-binary
+      - django-debug-toolbar

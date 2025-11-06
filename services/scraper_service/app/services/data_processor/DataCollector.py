@@ -7,7 +7,7 @@ from services.data_processor.dataInitialization import DataInit
 
 class DataCollector(DataInit):
     @staticmethod
-    def _get_all_most_relevant_attributes(most_relevant_attributes: Dict, min_significance: float = 0.3) -> Dict:
+    def _get_all_most_relevant_attributes(most_relevant_attributes: Dict, min_significance: float = 0.15) -> Dict:
         res = {}  # return dict
         for thema in most_relevant_attributes:
             res[thema] = DataCollector._get_one_most_relevant_attributes(most_relevant_attributes[thema],
@@ -15,7 +15,7 @@ class DataCollector(DataInit):
         return res
 
     @staticmethod
-    def _get_one_most_relevant_attributes(most_relevant_attributes: Dict, min_significance: float = 0.3) -> Dict:
+    def _get_one_most_relevant_attributes(most_relevant_attributes: Dict, min_significance: float = 0.15) -> Dict:
         if not most_relevant_attributes:
             return {}
         all_attributes_summa = max(most_relevant_attributes.values())
@@ -49,7 +49,7 @@ class DataCollector(DataInit):
                     most_relevant_attributes[thema] += self.words_counter[word]
                 else:
                     most_relevant_attributes[thema] += 0
-        self.results[d_k] = self._get_one_most_relevant_attributes(most_relevant_attributes, 0.4)
+        self.results[d_k] = self._get_one_most_relevant_attributes(most_relevant_attributes, 0.10)
 
 
     def collect_data(self):
