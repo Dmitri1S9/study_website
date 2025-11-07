@@ -1,49 +1,99 @@
-    services:
-      # Сервис для базы данных (PostgreSQL)
-      db:
-        image: postgres:14
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: 6713
-          POSTGRES_DB: archangel
-        volumes:
-          - postgres_data:/var/lib/postgresql/data
-        networks:
-          - backend
-
-      # Сервис для Django с Gunicorn
-      archangel:
-        build: .
-        command: gunicorn Archangel.wsgi:application --bind 0.0.0.0:5000
-        volumes:
-          - .:/app
-        expose:
-          - "5000"  # Используем expose, потому что проксирование будет через NGINX
-        depends_on:
-          - db
-        networks:
-          - backend
-
-      # Сервис для NGINX
-      nginx:
-        build:
-          context: ./nginx
-          dockerfile: Dockerfile
-        container_name: nginx
-        ports:
-          - "80:80"
-        volumes:
-          - ./staticfiles:/usr/share/nginx/html/static
-        depends_on:
-          - archangel
-        networks:
-          - backend
-
-
+services:
+  db:
+    image: postgres:14
+    ports:
+      - "5439:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 6713
+      POSTGRES_DB: archangel
     volumes:
-      postgres_data:
-      static:
-      media:
-
+      - postgres_data_archangel:/var/lib/postgresql/data
     networks:
-      backend:
+      - backend
+
+  db_api:
+    image: postgres:14
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 6713
+      POSTGRES_DB: fetcher
+    volumes:
+      - postgres_data_fetcher:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  celery:
+    build: .
+    command: celery -A Archangel worker -l info --concurrency=1
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
+      - fetcher
+    networks:
+      - backend
+
+  archangel:
+    build: .
+    command: gunicorn Archangel.wsgi:application --bind 0.0.0.0:5000
+    volumes:
+      - .:/app
+    expose:
+      - "5000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - celery
+      - redis
+      - fetcher
+    networks:
+      - backend
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./staticfiles:/usr/share/nginx/html/static
+    depends_on:
+      - archangel
+    networks:
+      - backend
+
+  fetcher:
+    build:
+      context: ./services/scraper_service
+      dockerfile: Dockerfile
+    container_name: fetcher
+    ports:
+      - "8044:8044"
+    depends_on:
+      - db
+    env_file:
+      - ./services/scraper_service/.env
+    networks:
+      - backend
+
+volumes:
+  postgres_data_archangel:
+  postgres_data_fetcher:
+  static:
+  media:
+
+networks:
+  backend:

@@ -1,0 +1,5 @@
+FETCHER_URL = "http://fetcher:8044"
+
+RATE_LIMIT_SECONDS = 60 * 5 # 5 minutes
+MAX_RETRIES = 3
+COOLDOWN_ON_ERROR = 3600
