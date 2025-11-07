@@ -31,7 +31,7 @@ def db_create_character(character_name: str, characteristics: Dict, title_name: 
 
 def fetcher_processor(character_name: str, title_name: str, debug: bool = False):
     try:
-        data = api_get_character(character_name=character_name, debug=debug)
+        data = api_get_character(character_name=character_name + title_name, debug=debug)
         db_create_character(character_name=character_name, title_name=title_name, characteristics=data)
     except Exception as e:
         print(e)
