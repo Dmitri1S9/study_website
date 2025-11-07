@@ -149,7 +149,8 @@ class FetchRedditAsync:
             score=post.score,
             k_=k
         )
-        content_to_db.append((post.id, self.character_name, round(post.score * k), post.title))
+        content_to_db.append((post.id, self.character_name, round(post.score * k),
+                              self.db.textProcessor.clean_text(post.title, self.db.ignore_words)))
 
         await post.comments.replace_more(limit=limit)
         comments = post.comments.list()
@@ -163,7 +164,8 @@ class FetchRedditAsync:
                     k_ = k
                 )
                 content_to_db.append(
-                    (comment.id, self.character_name, round(comment.score * k), comment.body)
+                    (comment.id, self.character_name, round(comment.score * k),
+                     self.db.textProcessor.clean_text(comment.body, self.db.ignore_words))
                 )
             if i % 50 == 0:
                 await asyncio.sleep(random.uniform(2, 6))
