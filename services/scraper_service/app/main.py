@@ -11,19 +11,33 @@ async def root():
     return {"status": "ok", "message": "Scraper API is alive 🚀"}
 
 @app.get("/get_character")
-async def get_character(character_name: str, debug:bool = False, user=Depends(verify_token)):
-    if debug:
-        return {"status": "ok", "data": get_test_character_data()}
-    else:
-        try:
-            scrapper = Scrapper(character_name, amount_of_posts=30, amount_of_comments_pro_post=100)
-            data = await scrapper.run()
-            if data is None:
-                print("Data is None")
-                raise ValueError("Data is None")
-            return {"status": "ok", "data": data.results}
-        except Exception as e:
-            return {"status": "error", "data": e}
+async def get_character(character_name: str, debug: bool = False, user=Depends(verify_token)):
+    try:
+        if debug:
+            return {"status": "ok", "data": get_test_character_data()}
+
+        scrapper = Scrapper(character_name, amount_of_posts=30, amount_of_comments_pro_post=100)
+        data = await scrapper.run()
+
+        if not data:
+            print("[WARN] Scrapper returned None or empty data")
+            return {"status": "error", "data": "scrapper returned empty result"}
+
+        results = getattr(data, "results", None)
+        if not results:
+            print("[WARN] No results attribute or it's empty")
+            return {"status": "error", "data": "no results found in scrapper output"}
+
+        print(f"[INFO] Successfully fetched {len(results)} results for {character_name}")
+        return {"status": "ok", "data": results}
+
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch character '{character_name}': {e}")
+        return {
+            "status": "error",
+            "error_type": type(e).__name__,
+            "error_message": str(e)
+        }
 
 
 def get_test_character_data():
