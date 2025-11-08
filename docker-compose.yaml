@@ -83,7 +83,7 @@ services:
     ports:
       - "8044:8044"
     depends_on:
-      - db
+      - db_api
     env_file:
       - ./services/scraper_service/.env
     networks:
