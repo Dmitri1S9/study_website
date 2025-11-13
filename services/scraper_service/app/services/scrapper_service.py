@@ -19,7 +19,9 @@ class Scrapper:
                 limit_comments=self.amount_of_comments_pro_post
             )
             bd.collect_data()
+            print("Collected data")
             bd.normalize()
+            print("Normalized data")
             # await self._save_result_async(bd.results)
             return bd
 
