@@ -48,5 +48,3 @@ docker exec -it study_website-archangel-1 python manage.py shell
 
 from apps.main_app.tasks import queue_all_characters
 queue_all_characters.delay()
-
-здесь я сделал глупость лучше просто сделать файл и запускать его через коносль тогда редис и селери не нужны но пусть уже так и будет
