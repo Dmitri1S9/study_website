@@ -1,8 +1,10 @@
 import asyncio
 import json
 import aiofiles
+# from  app.services.data_processor.DataCollector import DataCollector
 from services.data_processor.DataCollector import DataCollector
 from services.data_processor.redditFetcher import FetchRedditAsync
+# from app.services.data_processor.redditFetcher import FetchRedditAsync
 
 class Scrapper:
     def __init__(self, character_name, amount_of_posts: int = 30,
@@ -24,6 +26,7 @@ class Scrapper:
             print("Normalized data")
             # await self._save_result_async(bd.results)
             return bd
+
 
     async def _save_result_async(self, results: dict):
         # for debugging

@@ -1,9 +1,10 @@
 from pathlib import Path
-import asyncio
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, Depends
 import json
-from services.scrapper_service import Scrapper
+from services.scraper_service import Scrapper
 from auth import verify_token
+# from app.services.scraper_service import Scrapper
+# from app.auth import verify_token
 
 app = FastAPI(title="Character Scraper API")
 @app.get("/")
@@ -14,7 +15,7 @@ async def root():
 async def get_character(character_name: str, debug: bool = False, user=Depends(verify_token)):
     try:
         if debug:
-            return {"status": "ok", "data": get_test_character_data()}
+            return {"status": "ok", "data": {"test": 1}}
 
         scrapper = Scrapper(character_name, amount_of_posts=30, amount_of_comments_pro_post=100)
         data = await scrapper.run()
@@ -45,7 +46,11 @@ def get_test_character_data():
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
 
-
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("scraper_service.app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8000,
+        reload=False,
+    )
