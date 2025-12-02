@@ -3,6 +3,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Set, List, Dict
 from services.data_processor.textCleaner import TextCleaner
+# from app.services.data_processor.textCleaner import TextCleaner
 
 class DataInit:
     def __init__(self, character_name: str) -> None:
@@ -12,7 +13,7 @@ class DataInit:
         self.result_stats : Dict = {}
         self.results : Dict = {}
         self.get_path : Dict = {}
-        self.new_words : Set[str] = set()
+        self.new_words_counter : Counter[str] = Counter()
         self.textProcessor = TextCleaner
         self.character_name = character_name
 

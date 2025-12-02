@@ -9,8 +9,9 @@ import asyncio
 from typing import Any, Dict, List, Set, Optional
 
 from services.data_processor.DataCollector import DataCollector
-from services.data_processor.wordAnalyser import get_related_words
+# from app.services.data_processor.DataCollector import DataCollector
 from services.data_processor.bd import BaseDB
+# from app.services.data_processor.bd import BaseDB
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR.parent.parent / ".env")
@@ -19,7 +20,8 @@ CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
 USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 
-NEGATIONS = {"not", "no", "never"}
+NEGATIONS = {"not", "no", "never", "n't"}
+REINFORCEMENT = {"very"}
 
 
 class FetchRedditAsync:
@@ -38,7 +40,8 @@ class FetchRedditAsync:
         self.character_ids = self.postgres.get_character_ids(self.character_name)
 
     async def __aenter__(self):
-        await self._init_reddit()
+        if len(self.character_texts) < 500:
+            await self._init_reddit()
         return self
 
     async def __aexit__(self, exc_type, exc, tb):
@@ -85,7 +88,8 @@ class FetchRedditAsync:
                 i += 1
                 await self._fetch_post_with_comments(post_id[0], limit_comments, post_id[1])
                 if i % 10 == 0:
-                    await asyncio.sleep(10)
+                    await asyncio.sleep(5)
+            print("posts are fetched and now would be processed")
         else:
             print("Old posts would be processed")
             for text in self.character_texts:
@@ -110,9 +114,8 @@ class FetchRedditAsync:
             ):
                 post_ids.add((submission.id, 1))
             if i % 10 == 0:
-                await asyncio.sleep(random.uniform(1, 5))
+                await asyncio.sleep(random.uniform(1, 3))
 
-        await asyncio.sleep(random.uniform(5, 10))
         i = 0
         async for submission in subreddit.search(post_title, sort="top", limit=limit // 3 + 1):
             i += 1
@@ -122,9 +125,8 @@ class FetchRedditAsync:
             ):
                 post_ids.add((submission.id, 1))
             if i % 10 == 0:
-                await asyncio.sleep(random.uniform(1, 5))
+                await asyncio.sleep(random.uniform(1, 3))
 
-        await asyncio.sleep(random.uniform(10, 15))
         i = 0
         async for submission in subreddit.search(post_title, sort="most_comment", limit=limit // 3 + 1):
             i += 1
@@ -134,7 +136,7 @@ class FetchRedditAsync:
             ):
                 post_ids.add((submission.id, 0.3))
             if i % 10 == 0:
-                await asyncio.sleep(random.uniform(1, 5))
+                await asyncio.sleep(random.uniform(1, 3))
 
         return post_ids
 
@@ -146,13 +148,13 @@ class FetchRedditAsync:
         """
         content_to_db = []
         post = await self._reddit.submission(id=post_id)
-        self._count_words(
-            text=self.db.textProcessor.clean_text(post.title, self.db.ignore_words),
-            score=post.score,
-            k_=k
-        )
-        content_to_db.append((post.id, self.character_name, round(post.score * k),
-                              post.title))
+        for sentence in post.title.split("."):
+            self._count_words(
+                text=self.db.textProcessor.clean_text(sentence, self.db.ignore_words),
+                score=post.score,
+                k_=k
+            )
+            content_to_db.append((post.id, self.character_name, round(post.score * k), sentence))
 
         await post.comments.replace_more(limit=limit)
         comments = post.comments.list()
@@ -160,55 +162,43 @@ class FetchRedditAsync:
         for comment in comments:
             i += 1
             if comment.score >= 0:
-                self._count_words(
-                    text=self.db.textProcessor.clean_text(comment.body, self.db.ignore_words),
-                    score=comment.score,
-                    k_ = k
-                )
-                content_to_db.append(
-                    (comment.id, self.character_name, round(comment.score * k), comment.body)
-                )
+                for sentence in comment.body.split("."):
+                    self._count_words(
+                        text=self.db.textProcessor.clean_text(sentence, self.db.ignore_words),
+                        score=comment.score,
+                        k_=k
+                    )
+                    content_to_db.append((comment.id, self.character_name, round(comment.score * k), sentence))
             if i % 50 == 0:
-                await asyncio.sleep(random.uniform(2, 6))
+                await asyncio.sleep(random.uniform(0.50, 1.02))
         self.postgres.insert_many(content_to_db)
 
     def _count_words(self, text: List[str], score: int, k_: int = 1) -> None:
-        k = 3 if any(word in text for word in self.character_name.lower().split()) else k_
+        k = k_ * 2 if any(word in text for word in self.character_name.lower().split()) else k_
         base_direct = round(word_boost(score) * k + 1)
         base_related = round(word_boost(score + 1) * 0.5 * k)
 
         for idx, word in enumerate(text):
             negated = 1
-            for n in NEGATIONS:
-                if n in text:
-                    negated = -1
-                    break
+            very = 1
+            left = max(0, idx - 4)
+            right = min(len(text), idx + 1)
+            window_forward = text[left:right]
+            if any(n in window_forward for n in NEGATIONS):
+                negated = -0.9
+            if any(r in window_forward for r in REINFORCEMENT):
+                very = 1.5
+
             if word in self.db.words:
                 self.db.words_counter[word] += negated * base_direct
-            elif self._word_in_characters(word):
-                related_words = get_related_words(word)
-                for i in related_words:
-                    if i in self.db.words and i not in self.db.ignore_words:
-                        self.db.words_counter[i] += negated * base_related
+            elif idx >= 1 and text[idx - 1] + " " + text[idx] in self.db.words:
+                self.db.words_counter[text[idx - 1] + " " + text[idx]] += negated * very * base_related * 2
             else:
-                self.db.ignore_words.add(word)
+                self.db.new_words_counter[word] += negated * very * base_direct * 2
 
-    def _word_in_characters(self, word: str) -> bool:
-        if self.db.get_path.get(word) is None:
-            return False
-        for path in self.db.get_path[word]:
-            if "character" in path:
-                return True
-        else:
-            return False
 
 def word_boost(n: float) -> int:
-    if n <= 20:
-        return round(n ** 0.95) + 1
-    elif n <= 100:
-        return round(n ** (math.log(n, 20))) + 1
-    else:
-        return 1313
+    return round(math.log2(n + 1)) + 1
 
 if __name__ == "__main__":
     ...
