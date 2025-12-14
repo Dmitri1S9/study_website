@@ -12,35 +12,16 @@ services:
     networks:
       - backend
 
-  db_api:
+  db_openai_api:
     image: postgres:14
     ports:
       - "5435:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 6713
-      POSTGRES_DB: fetcher
+      POSTGRES_DB: characters
     volumes:
-      - postgres_data_fetcher:/var/lib/postgresql/data
-    networks:
-      - backend
-
-  redis:
-    image: redis:7
-    ports:
-      - "6379:6379"
-    networks:
-      - backend
-
-  celery:
-    build: .
-    command: celery -A Archangel worker -l info --concurrency=1
-    volumes:
-      - .:/app
-    depends_on:
-      - redis
-      - db
-      - fetcher
+      - postgres_data_characters:/var/lib/postgresql/data
     networks:
       - backend
 
@@ -55,9 +36,6 @@ services:
       - .env
     depends_on:
       - db
-      - celery
-      - redis
-      - fetcher
     networks:
       - backend
 
@@ -75,23 +53,9 @@ services:
     networks:
       - backend
 
-  fetcher:
-    build:
-      context: ./services/scraper_service
-      dockerfile: Dockerfile
-    container_name: fetcher
-    ports:
-      - "8044:8044"
-    depends_on:
-      - db_api
-    env_file:
-      - ./services/scraper_service/.env
-    networks:
-      - backend
-
 volumes:
   postgres_data_archangel:
-  postgres_data_fetcher:
+  postgres_data_characters:
   static:
   media:
 
