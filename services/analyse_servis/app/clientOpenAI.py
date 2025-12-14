@@ -15,16 +15,16 @@ class OpenaiClient:
     def __init__(self) -> None:
         self.client = OpenAI(api_key=os.getenv("API_KEY"))
         self.log = logging.getLogger(__name__)
-        self.debug = os.getenv("DEBUG")
+        self.debug = os.getenv("DEBUG").strip().lower() == "true"
         self.db = DBWorker()
 
     def get_character_profile(self, name: str, universe: str) -> dict:
-        def check_data(data: Dict[str, Any]) -> Dict[str, Any]:
-            if data["name"] == -1 | data["universe"] == -1:
+        def check_data(output_data: Dict[str, Any]) -> Dict[str, Any]:
+            if output_data["name"] == -1 or output_data["universe"] == -1:
                 raise CharacterException
-            if data is None:
+            if output_data is None:
                 raise OpenAIException
-            return data
+            return output_data
 
         if self.debug:
             self.log.debug("Getting character profile from OpenAI")
@@ -43,7 +43,8 @@ class OpenaiClient:
             max_output_tokens=2000
         )
         self.log.info(f"character {name} from {universe} was got from OpenAI")
-        return check_data(resp.output_text)
+        data = json.loads(resp.output_text)
+        return check_data(data)
 
     def save_character_to_db(self, character_name, universe, character_profile: Dict[str, Any]) -> None:
         if self.debug:
