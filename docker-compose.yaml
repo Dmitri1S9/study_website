@@ -39,6 +39,43 @@ services:
     networks:
       - backend
 
+  analyse_service:
+    build:
+      context: ./services/analyse_service
+      dockerfile: Dockerfile
+    container_name: analyse_service
+    ports:
+      - "8044:8044"
+    depends_on:
+      - db_openai_api
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    networks:
+      - backend
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - backend
+
+  celery_worker:
+    build:
+      context: ./services/analyse_service
+      dockerfile: Dockerfile
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - db_openai_api
+    command: conda run --no-capture-output -n analyse_service celery -A app.celery_app:celery worker -l INFO --concurrency=3
+    networks:
+      - backend
+
   nginx:
     build:
       context: ./nginx

@@ -5,6 +5,6 @@ __pycache__/
 /.env
 /apps/mainPage/migrations/
 /users/mainPage/migrations/
-services/analyse_servis/.env
+services/analyse_service/.env
 .idea/
 
