@@ -7,6 +7,7 @@ SEED = 42
 N_ESTIMATORS = 3000
 FEATURE_NAME = "flag_serious_violent_crime"
 
+
 BASE_DIR = Path(__file__).resolve().parent  # app/ml_client/
 MEDIANS_PATH = str((BASE_DIR / "data" / "medians.json").resolve())
 

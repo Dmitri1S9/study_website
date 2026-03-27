@@ -35,7 +35,7 @@ class MLLearnContext:
     def __init__(self) -> None:
         self.log = log
         self.db_get = DBGet()
-        self.characters_list = self.db_get.get_all_characters()
+        self.characters_list = self.db_get.get_all_characters()[:1997]
 
 
 class MLTraining(MLLearnContext):
